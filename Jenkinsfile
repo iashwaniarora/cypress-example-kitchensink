@@ -58,7 +58,7 @@ pipeline {
       steps {
         // start local server in the background
         // we will shut it down in "post" command block
-        bat 'nohup npm run start:ci &'
+        bat 'npm run start:ci &'
       }
     }
 
