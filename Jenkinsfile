@@ -49,8 +49,8 @@ pipeline {
         // on local Jenkins machine (assuming port 8080) see
         // http://localhost:8080/pipeline-syntax/globals#env
         echo "Running build ${env.BUILD_ID} on ${env.JENKINS_URL}"
-        sh 'npm ci'
-        sh 'npm run cy:verify'
+        bat 'npm ci'
+        bat 'npm run cy:verify'
       }
     }
 
@@ -58,7 +58,7 @@ pipeline {
       steps {
         // start local server in the background
         // we will shut it down in "post" command block
-        sh 'nohup npm run start:ci &'
+        bat 'nohup npm run start:ci &'
       }
     }
 
@@ -83,7 +83,7 @@ pipeline {
         stage('tester A') {
           steps {
             echo "Running build ${env.BUILD_ID}"
-            sh "npm run e2e:record:parallel"
+            bat "npm run e2e:record:parallel"
           }
         }
 
@@ -91,7 +91,7 @@ pipeline {
         stage('tester B') {
           steps {
             echo "Running build ${env.BUILD_ID}"
-            sh "npm run e2e:record:parallel"
+            bat "npm run e2e:record:parallel"
           }
         }
       }
@@ -103,7 +103,7 @@ pipeline {
     // shutdown the server running in the background
     always {
       echo 'Stopping local server'
-      sh 'pkill -f http-server'
+      bat 'pkill -f http-server'
     }
   }
 }
